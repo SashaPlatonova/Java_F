@@ -1,5 +1,4 @@
 package lesson4;
-
 import java.util.Scanner;
 
 public class XO {
@@ -51,18 +50,56 @@ public class XO {
     }
 
     private static void moveAI() {
+        boolean isWinMove;
+
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                if (MAP[i][j] == DEFAULT) {
-                    MAP[i][j] = PC;
-                    return;
+                if (MAP[i][j]==DEFAULT){
+                    MAP[i][j]=USER;
+                    isWinMove=isVictory(USER);
+                    if (isWinMove){
+                        MAP[i][j]=PC;
+                        return;
+                    }
+                    MAP[i][j]=DEFAULT;
                 }
             }
         }
-        throw new IllegalArgumentException();
+        while (true){
+            int x = (int) (Math.random()*(SIZE-1));
+            int y = (int) (Math.random()*(SIZE-1));
+            if (MAP[x][y]==DEFAULT){
+                MAP[x][y]=PC;
+                return;
+            }
+            throw new IllegalArgumentException();
+        }
     }
 
     static boolean isVictory(char player) {
+        int checkRow=0, checkCol=0, checkDiag1=0, checkDiag2=0;
+        for (int i = 0; i<SIZE; i++){
+            for (int j = 0; j<SIZE; j++){
+                if (MAP[i][j]==player){
+                    checkRow++;
+                    if (i==j){
+                        checkDiag1++;
+
+                    }
+                    if (i+j==SIZE-1)
+                        checkDiag2++;
+                }
+
+                if (MAP[j][i]==player){
+                    checkCol++;
+                }
+
+                if (checkRow==SIZE||checkCol==SIZE||checkDiag1==SIZE||checkDiag2==SIZE)
+                    return true;
+            }
+            checkRow=0;
+            checkCol=0;
+        }
         return false;
     }
 
