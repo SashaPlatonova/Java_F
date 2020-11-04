@@ -7,4 +7,6 @@ public class Cat extends Animal {
         lengthSwim = 0;
         height = 2;
     }
+
 }
+
