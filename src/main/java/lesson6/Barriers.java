@@ -57,4 +57,6 @@ public class Barriers {
             System.out.println("The animal can't do this action");
         }
     }
-}
+
+
+
