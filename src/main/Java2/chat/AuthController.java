@@ -1,4 +1,4 @@
-package lesson4;
+package chat;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,11 +14,20 @@ import java.net.Socket;
 public class AuthController {
     public TextField login;
     public TextField password;
+    private ObjectInputStream is;
+    private ObjectOutputStream out;
 
     public void enter(ActionEvent actionEvent) throws IOException {
         boolean auth = MockAuthServiceImpl.getInstance()
                 .auth(login.getText(), password.getText());
         if (auth) {
+            try {
+                Socket socket = new Socket("localhost", 8089);
+                out = new ObjectOutputStream(socket.getOutputStream());
+                is = new ObjectInputStream(socket.getInputStream());
+            } catch (IOException e) {
+                System.out.println("Connection Error");;
+            }
             Parent chat = FXMLLoader.load(getClass().getResource("chat.fxml"));
             Stage stage = new Stage();
             stage.setTitle("Сетевой чат");
@@ -41,6 +50,4 @@ public class AuthController {
         stage.show();
         login.getScene().getWindow().hide();
     }
-
-
 }

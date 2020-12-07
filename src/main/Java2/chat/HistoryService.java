@@ -1,4 +1,4 @@
-package lesson4;
+package chat;
 
 import java.util.List;
 
