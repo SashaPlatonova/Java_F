@@ -1,21 +1,33 @@
-package lesson4;
+package chat;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+
 public class AuthController {
     public TextField login;
     public TextField password;
+    private ObjectInputStream is;
+    private ObjectOutputStream out;
 
     public void enter(ActionEvent actionEvent) throws IOException {
         boolean auth = MockAuthServiceImpl.getInstance()
                 .auth(login.getText(), password.getText());
         if (auth) {
+            try {
+                Socket socket = new Socket("localhost", 8089);
+                out = new ObjectOutputStream(socket.getOutputStream());
+                is = new ObjectInputStream(socket.getInputStream());
+            } catch (IOException e) {
+                System.out.println("Connection Error");;
+            }
             Parent chat = FXMLLoader.load(getClass().getResource("chat.fxml"));
             Stage stage = new Stage();
             stage.setTitle("Сетевой чат");
@@ -30,10 +42,10 @@ public class AuthController {
     }
 
     public void reg(ActionEvent actionEvent) throws IOException {
-        Parent chat = FXMLLoader.load(getClass().getResource("registration.fxml"));
+        Parent reg = FXMLLoader.load(getClass().getResource("registration.fxml"));
         Stage stage = new Stage();
         stage.setTitle("Регистрация");
-        stage.setScene(new Scene(chat));
+        stage.setScene(new Scene(reg));
         stage.setResizable(false);
         stage.show();
         login.getScene().getWindow().hide();

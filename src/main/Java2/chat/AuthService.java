@@ -1,4 +1,4 @@
-package lesson4;
+package chat;
 
 public interface AuthService {
     void addUser(String name, String pass);

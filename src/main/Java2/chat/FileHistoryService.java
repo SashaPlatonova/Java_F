@@ -1,4 +1,4 @@
-package lesson4;
+package chat;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class FileHistoryService implements HistoryService{
 
     private static FileHistoryService instanse;
-    private final String path = "C:\\Users\\User\\Desktop\\geekbrains\\Java_F\\src\\main\\resources\\lesson4\\history.txt";
+    private final String path = "C:\\Users\\User\\Desktop\\geekbrains\\Java_F\\src\\main\\resources\\chat\\history.txt";
 
     private FileHistoryService() {
 

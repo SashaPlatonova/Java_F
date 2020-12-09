@@ -1,16 +1,18 @@
 package lesson6;
 
+import lesson4.ChatServer;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-public class ClientHandler implements Runnable {
+public class ClientsHandler implements Runnable {
     private DataInputStream is;
     private DataOutputStream os;
     private boolean running;
 
-    public ClientHandler(Socket socket) throws IOException {
+    public ClientsHandler(Socket socket, ChatServer chatServer) throws IOException {
         is = new DataInputStream(socket.getInputStream());
         os = new DataOutputStream(socket.getOutputStream());
         running = true;

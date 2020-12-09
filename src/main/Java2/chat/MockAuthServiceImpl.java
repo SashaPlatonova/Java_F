@@ -1,4 +1,4 @@
-package lesson4;
+package chat;
 
 import java.util.HashMap;
 
@@ -6,10 +6,11 @@ public class MockAuthServiceImpl implements AuthService{
     private static MockAuthServiceImpl instance;
     private HashMap<String, String> userDao;
 
-    private MockAuthServiceImpl() {
+    public MockAuthServiceImpl() {
         userDao = new HashMap<>();
         userDao.put("user", "pass");
     }
+
 
     public static MockAuthServiceImpl getInstance() {
         if (instance == null) {

@@ -8,6 +8,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
@@ -15,10 +18,14 @@ import java.util.ResourceBundle;
 public class ChatController implements Initializable{
     public TextField output;
     public TextField input;
+    public TextField myOutput;
+    private ObjectOutputStream out;
+    private ObjectInputStream is;
 
-    public void send(ActionEvent actionEvent) {
-        output.appendText(input.getText() + "\n");
-        input.clear();
+    public void send(ActionEvent actionEvent) throws IOException {
+            myOutput.appendText(input.getText() + "\n");
+            input.clear();
+
     }
 
     public void quit(ActionEvent actionEvent) throws IOException {
