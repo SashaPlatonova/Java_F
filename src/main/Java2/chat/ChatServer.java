@@ -1,6 +1,7 @@
 package chat;
 
 import lesson6.ClientsHandler;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -9,6 +10,7 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class ChatServer {
 
+    private final Logger file = Logger.getLogger("file");
     private final int PORT = 8189;
     private boolean running;
     private ConcurrentLinkedDeque<ClientHandler> clients = new ConcurrentLinkedDeque<>();
@@ -19,10 +21,13 @@ public class ChatServer {
         running = true;
         try(ServerSocket serverSocket = new ServerSocket(PORT)){
             System.out.println("Server started!");
+            file.info("Server started!");
             while (running){
                 System.out.println("Server is waiting connection");
+                file.info("Server is waiting connection");
                 Socket socket = serverSocket.accept();
                 System.out.println("Client accepted!");
+                file.info("Client accepted!");
                 counter++;
                 ClientHandler handler = new ClientHandler(socket, this);
                 clients.add(handler);
