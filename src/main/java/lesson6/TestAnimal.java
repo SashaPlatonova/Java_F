@@ -18,4 +18,6 @@ public class TestAnimal {
         road.overcoming(dog);
         road.overcoming(dog);
     }
+
 }
+
